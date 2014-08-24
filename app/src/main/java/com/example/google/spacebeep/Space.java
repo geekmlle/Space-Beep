@@ -1,6 +1,7 @@
 package com.example.google.spacebeep;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.wearable.view.WatchViewStub;
@@ -46,10 +47,12 @@ public class Space extends Activity {
         handler.postDelayed(new Runnable() {
             public void run() {
                 addRandom();
+                instructionsTV.setText("Watch closely!");
                 recursion(0);
             }
         }, 1000);
         turn = true;
+        instructionsTV.setText("Your turn!");
         click_counter = 0;
     }
 
@@ -79,6 +82,7 @@ public class Space extends Activity {
                 }else{
                     if(sequence.size()-1 == click_counter){
                         turn = false;
+                        instructionsTV.setText("My turn!");
                         gameStart();
                     }
                     else{
@@ -103,6 +107,7 @@ public class Space extends Activity {
                 }else{
                     if(sequence.size()-1 == click_counter){
                         turn = false;
+                        instructionsTV.setText("My turn!");
                         gameStart();
                     }
                     else{
@@ -127,6 +132,7 @@ public class Space extends Activity {
                 }else{
                     if(sequence.size()-1 == click_counter){
                         turn = false;
+                        instructionsTV.setText("My turn!");
                         gameStart();
                     }
                     else{
@@ -152,6 +158,7 @@ public class Space extends Activity {
                 }else{
                     if(sequence.size()-1 == click_counter){
                         turn = false;
+                        instructionsTV.setText("My turn!");
                         gameStart();
                     }
                     else{
@@ -172,30 +179,70 @@ public class Space extends Activity {
 
     private void recursion(int i){
         if(i < sequence.size()){
+
             int button_number = Integer.parseInt(sequence.get(i).toString());
 
             final int text = i;
 
             if(button_number == 1){
                 b1.setText(Integer.toString(i));
+                b1.setBackgroundColor(Color.parseColor("#F90101"));
+
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        b1.setBackgroundResource(R.drawable.star);
+                        b1.setText("");
+                        recursion(text + 1);
+                    }
+                }, 1000);
+
+
             }else if(button_number == 2){
                 b2.setText(Integer.toString(i));
+                b2.setBackgroundColor(Color.parseColor("#F2B50F"));
+
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        b2.setBackgroundResource(R.drawable.moon);
+                        b2.setText("");
+                        recursion(text + 1);
+                    }
+                }, 1000);
+
+
             }else if(button_number == 3){
                 b3.setText(Integer.toString(i));
+                b3.setBackgroundColor(Color.parseColor("#00933B"));
+
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        b3.setBackgroundResource(R.drawable.sun2);
+                        b3.setText("");
+                        recursion(text + 1);
+                    }
+                }, 1000);
+
             }else{
                 b4.setText(Integer.toString(i));
+                b4.setBackgroundColor(Color.parseColor("#0266C8"));
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        b4.setBackgroundResource(R.drawable.shootingstar);
+                        b4.setText("");
+                        recursion(text + 1);
+                    }
+                }, 1000);
+
             }
 
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    b1.setText("");
-                    b2.setText("");
-                    b3.setText("");
-                    b4.setText("");
-                    recursion(text + 1);
-                }
-            }, 800);
         }
     }
 }
